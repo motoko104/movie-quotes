@@ -13,7 +13,6 @@ import colors from "../constants/colors";
 import Status from "./Status";
 
 const Node = ({ node, expanded, toggleNodeExpanded }) => {
-  console.log(node);
   const classes = useStyles();
   return (
     <Accordion

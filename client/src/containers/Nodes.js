@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 import * as actions from "../actions/nodes";
 import Node from "../components/Node";
 import { Typography, Box } from "@material-ui/core";
+import axios from 'axios';
 
 export class Nodes extends React.Component {
   constructor(props) {
@@ -20,6 +21,11 @@ export class Nodes extends React.Component {
   }
 
   toggleNodeExpanded(node) {
+    const host = "http://localhost:3001";
+   axios.get(`${host}/api/${node.id}/blocks`)
+   .then((res) => { 
+     // this gets me the data im looking for to display blocks
+     console.log(res)});
     this.setState({
       expandedNodeID:
         node.id === this.state.expandedNodeID ? null : node.id,
