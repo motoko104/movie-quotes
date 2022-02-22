@@ -18,6 +18,8 @@ Each movie within local database renders to the page as a list of nodes. Clickin
 
 Application should match the result screen provided ![included png](./ResultScreenshot.png)
 
+My Recreation ![included jpg](./MyRecreation.JPG)
+
 ## Acceptance criteria:
 1. Blocks are displayed when opening up the card
 2. Loading, error, empty states are displayed when appropriate
