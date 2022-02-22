@@ -34,7 +34,7 @@ const Node = ({ node, expanded, toggleNodeExpanded, blockData }) => {
         <Box className={classes.summaryContent}>
           <Box>
             <Typography variant="h5" className={classes.heading}>
-              {node.online && node.title || "Unknown"}
+              {(node.online && node.title) || "Unknown"}
             </Typography>
             <Typography
               variant="subtitle1"
@@ -46,12 +46,14 @@ const Node = ({ node, expanded, toggleNodeExpanded, blockData }) => {
           <Status loading={node.loading} online={node.online} />
         </Box>
       </AccordionSummary>
-      <AccordionDetails>
+      <AccordionDetails
+      className={classes.blockOrientation}
+      >
         { (blockData?.length) ? (
           blockData.map((block) => (
             <Block
           blockData={block}
-          key={block.hash}
+          key={block.attributes.hash}
           ></Block>
           ))
         ) : (
@@ -106,6 +108,10 @@ const useStyles = makeStyles((theme) => ({
     color: colors.faded,
     lineHeight: 2,
   },
+  blockOrientation: {
+    display: "flex",
+    flexDirection: "column"
+  }
 }));
 
 Node.propTypes = {
