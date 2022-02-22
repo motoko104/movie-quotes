@@ -67,7 +67,6 @@ export default function nodesReducer(state = initialState().nodes, action) {
     case GET_NODE_BLOCKS_SUCCESS:
       nodeIndex = state.list.findIndex(p => p.id === action.node.id);
       blocks = [];
-      // console.log(action.res.blocks);
       if (nodeIndex >= 0) {
         blocks = action.res.blocks || []
       }

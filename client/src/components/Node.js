@@ -12,6 +12,7 @@ import {
 import colors from "../constants/colors";
 import Status from "./Status";
 import Block from './Block';
+import MissingData from "./MissingData";
 
 const Node = ({ node, expanded, toggleNodeExpanded, blockData }) => {
   const classes = useStyles();
@@ -57,7 +58,7 @@ const Node = ({ node, expanded, toggleNodeExpanded, blockData }) => {
           ></Block>
           ))
         ) : (
-          <Typography>No blocks here</Typography>
+         <MissingData customMessage="No data available"></MissingData>
         )}
       </AccordionDetails>
     </Accordion>

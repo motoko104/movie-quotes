@@ -29,7 +29,6 @@ export class Nodes extends React.Component {
 
   render() {
     const { nodes } = this.props;
-    console.log(nodes.blocks)
     return (
       <Box paddingTop={7}>
         <Typography variant="h4" component="h1">
