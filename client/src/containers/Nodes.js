@@ -5,13 +5,12 @@ import { bindActionCreators } from "redux";
 import * as actions from "../actions/nodes";
 import Node from "../components/Node";
 import { Typography, Box } from "@material-ui/core";
-import axios from 'axios';
 
 export class Nodes extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      expandedNodeID: null,
+      expandedNodeID: null
     };
     this.toggleNodeExpanded = this.toggleNodeExpanded.bind(this);
   }
@@ -20,20 +19,17 @@ export class Nodes extends React.Component {
     this.props.actions.checkNodeStatuses(this.props.nodes.list);
   }
 
-  toggleNodeExpanded(node) {
-    const host = "http://localhost:3001";
-   axios.get(`${host}/api/${node.id}/blocks`)
-   .then((res) => { 
-     // this gets me the data im looking for to display blocks
-     console.log(res)});
+  toggleNodeExpanded (node) {
+   this.props.actions.getNodeBlocks(node);
     this.setState({
       expandedNodeID:
         node.id === this.state.expandedNodeID ? null : node.id,
     });
-  }
+}
 
   render() {
     const { nodes } = this.props;
+    console.log(nodes.blocks)
     return (
       <Box paddingTop={7}>
         <Typography variant="h4" component="h1">
@@ -43,6 +39,7 @@ export class Nodes extends React.Component {
           <Node
             node={node}
             key={node.id}
+            blockData={nodes.blocks}
             expanded={node.id === this.state.expandedNodeID}
             toggleNodeExpanded={this.toggleNodeExpanded}
           />
@@ -50,7 +47,7 @@ export class Nodes extends React.Component {
       </Box>
     );
   }
-}
+};
 
 Nodes.propTypes = {
   actions: PropTypes.object.isRequired,

@@ -1,8 +1,14 @@
-import {CHECK_NODE_STATUS_START, CHECK_NODE_STATUS_SUCCESS, CHECK_NODE_STATUS_FAILURE} from '../constants/actionTypes';
+import {
+  CHECK_NODE_STATUS_START,
+  CHECK_NODE_STATUS_SUCCESS,
+  CHECK_NODE_STATUS_FAILURE,
+  GET_NODE_BLOCKS_SUCCESS,
+  GET_NODE_BLOCKS_FAILURE
+} from '../constants/actionTypes';
 import initialState from './initialState';
 
 export default function nodesReducer(state = initialState().nodes, action) {
-  let list, nodeIndex;
+  let list, blocks, nodeIndex;
   switch (action.type) {
     case CHECK_NODE_STATUS_START:
       list = state.list;
@@ -57,6 +63,24 @@ export default function nodesReducer(state = initialState().nodes, action) {
       return {
         ...state,
         list
+      };
+    case GET_NODE_BLOCKS_SUCCESS:
+      nodeIndex = state.list.findIndex(p => p.id === action.node.id);
+      blocks = [];
+      // console.log(action.res.blocks);
+      if (nodeIndex >= 0) {
+        blocks = action.res.blocks || []
+      }
+      return {
+        ...state,
+        blocks
+      };
+      case GET_NODE_BLOCKS_FAILURE:
+        nodeIndex = state.list.findIndex(p => p.id === action.node.id);
+        blocks =[];
+      return {
+        ...state,
+        blocks
       };
     default:
       return state;

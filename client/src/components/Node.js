@@ -11,8 +11,9 @@ import {
 } from "@material-ui/core";
 import colors from "../constants/colors";
 import Status from "./Status";
+import Block from './Block';
 
-const Node = ({ node, expanded, toggleNodeExpanded }) => {
+const Node = ({ node, expanded, toggleNodeExpanded, blockData }) => {
   const classes = useStyles();
   return (
     <Accordion
@@ -33,7 +34,7 @@ const Node = ({ node, expanded, toggleNodeExpanded }) => {
         <Box className={classes.summaryContent}>
           <Box>
             <Typography variant="h5" className={classes.heading}>
-              {node.title || "Unknown"}
+              {node.online && node.title || "Unknown"}
             </Typography>
             <Typography
               variant="subtitle1"
@@ -46,7 +47,16 @@ const Node = ({ node, expanded, toggleNodeExpanded }) => {
         </Box>
       </AccordionSummary>
       <AccordionDetails>
-        <Typography>Blocks go here</Typography>
+        { (blockData?.length) ? (
+          blockData.map((block) => (
+            <Block
+          blockData={block}
+          key={block.hash}
+          ></Block>
+          ))
+        ) : (
+          <Typography>No blocks here</Typography>
+        )}
       </AccordionDetails>
     </Accordion>
   );
@@ -107,6 +117,7 @@ Node.propTypes = {
   }).isRequired,
   expanded: PropTypes.bool,
   toggleNodeExpanded: PropTypes.func.isRequired,
+  blockData: PropTypes.oneOfType([PropTypes.array])
 };
 
 export default Node;
